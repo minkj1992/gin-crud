@@ -33,7 +33,7 @@ go run main.go
   - [ ] fmt script
 
 - code
-  - [ ] crud `entity`
+  - [x] crud `entity`
   - [ ] create entity relationship
   - [ ] add audio field to save on postgresql
   - [ ] add json validation
