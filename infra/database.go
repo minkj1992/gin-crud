@@ -2,6 +2,8 @@ package infra
 
 import (
 	"fmt"
+	"log"
+	"strconv"
 
 	"gorm.io/gorm"
 )
@@ -23,13 +25,19 @@ func SetDB(db *gorm.DB) {
 }
 
 func Config() *DBConfig {
-	password := GetEnv("DB_PASSWORD")
+	var port int
+	var err error
+	
+	if port, err = strconv.Atoi(GetEnv("DB_PORT")); err != nil {
+        log.Fatalf("Error loading .env file")
+    } 
+	
 	return &DBConfig{
-		Host:     "0.0.0.0",
-		Port:     3306,
-		User:     "root",
-		DBName:   "todos",
-		Password: password,
+		Host:     GetEnv("DB_HOST"),
+		Port:     port,
+		User:     GetEnv("DB_USER"),
+		DBName:   GetEnv("DB_NAME"),
+		Password: GetEnv("DB_PASSWORD"),
 	}
 }
 
