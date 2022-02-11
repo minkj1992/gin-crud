@@ -1,32 +1,31 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/minkj1992/gin-crud/controller"
-	"github.com/minkj1992/gin-crud/service"
+	"github.com/minkj1992/gin-crud/infra"
+	"github.com/minkj1992/gin-crud/models"
+	"github.com/minkj1992/gin-crud/routes"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-
-var (
-	todoService service.TodoService = service.New()
-	todoController controller.TodoController = controller.New(todoService)
-)
 
 func main() {
-	server := gin.Default()
-	server.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-	server.GET("/todos", func(c *gin.Context){
-		c.JSON(http.StatusOK, todoController.All())
-	})
-	server.POST("/todos", func(c *gin.Context){
-		c.JSON(http.StatusCreated, todoController.Save(c))
-	})
-	
-	server.Run(":8080")
+	infra.LoadEnv()
+
+	dsn := infra.Url(infra.Config())
+	db, err := gorm.Open(mysql.Open(dsn),  &gorm.Config{})
+	infra.SetDB(db)
+
+	if err != nil {
+		log.Fatalf("Failed to get db connection: %v", err)
+	}
+	db.AutoMigrate(&models.Todo{})
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	routes.TodoRoutes(router)
+	router.Run(":8080")
 }
