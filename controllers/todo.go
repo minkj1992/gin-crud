@@ -51,8 +51,8 @@ func UpdateTodo(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusNotFound, todo)
 	}
-
-	c.BindJSON(&todo)
+	// request body를 읽어 json.unmarshal하여 todo에 넣어준다. 이 과정에서 json 형태가 맞는지 validate한번 거친다.
+	c.BindJSON(&todo) 
 	err = models.UpdateTodo(&todo, id)
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
