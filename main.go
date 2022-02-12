@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/minkj1992/gin-crud/infra"
+	"github.com/minkj1992/gin-crud/middleware"
 	"github.com/minkj1992/gin-crud/models"
 	"github.com/minkj1992/gin-crud/routes"
 	"gorm.io/driver/mysql"
@@ -26,6 +27,9 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
+	// routes.UserRoutes(router)
+	router.Use(middleware.Authenticate())
+
 	routes.TodoRoutes(router)
 	router.Run(":8080")
 }
