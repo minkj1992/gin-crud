@@ -31,20 +31,20 @@ go run main.go
   - [x] add mysql
   - [x] add repository
   - [x] dotenv
-  - [ ] jwt auth
+  - [x] jwt auth
   - [ ] add swagger
   - [ ] ci with github action
   - [ ] cd with heroku
   - [ ] fmt script
+  - [ ] hot reload dev mode
 
 - code
   - [x] crud `entity`
-  - [ ] create entity relationship
-    - [ ] user : todo
-    - [ ] authorization
+  - [x] create entity relationship
+    - [x] user : todo
+  - [ ] crud authorization
   - [ ] add audio field to save on postgresql
-  - [ ] add json validation
-  - [ ] add middleware
+  - [x] add json validation
+  - [x] add middleware
   - [ ] add dto
-  - [ ] add 1:n relationship with `Diary` and `Post`
   - [ ] unittest

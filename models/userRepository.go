@@ -1,6 +1,8 @@
 package models
 
-import "github.com/minkj1992/gin-crud/infra"
+import (
+	"github.com/minkj1992/gin-crud/infra"
+)
 
 
 func GetAllUsers(users *[]User) (err error) {
