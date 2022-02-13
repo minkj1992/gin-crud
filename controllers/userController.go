@@ -46,6 +46,9 @@ func SignUp(c *gin.Context) {
 	}
 	// todo: Check user is already exist (unique email)
 	// todo: hash password
+	// hash password
+	password := services.HashPassword(*user.Password)
+	user.Password = &password
 	
 	u := uuid.NewString()
 	user.UUID = &u
