@@ -1,17 +1,17 @@
 package routes
 
 import (
-	controllers "github.com/minkj1992/gin-crud/controllers"
-
 	"github.com/gin-gonic/gin"
+	"github.com/minkj1992/gin-crud/controllers"
 )
+
 func TodoRoutes(incomingRoutes *gin.Engine) {
-	v1 := incomingRoutes.Group("/v1")
+	todos := incomingRoutes.Group("v1/todos")
 	{
-		v1.GET("todos/:id", controllers.GetTodo)
-		v1.GET("todos", controllers.GetTodos)
-		v1.POST("todos", controllers.CreateTodo)
-		v1.PUT("todos/:id", controllers.UpdateTodo)
-		v1.DELETE("todos/:id", controllers.DeleteTodo)
-	}	
+		todos.GET("/:id", controllers.GetTodo)
+		todos.GET("/", controllers.GetTodos)
+		todos.POST("/", controllers.CreateTodo)
+		todos.PUT("/:id", controllers.UpdateTodo)
+		todos.DELETE("/:id", controllers.DeleteTodo)
+	}
 }

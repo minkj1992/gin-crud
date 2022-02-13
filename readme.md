@@ -11,6 +11,9 @@ go get -u gorm.io/gorm
 go get -u github.com/go-sql-driver/mysql
 go get -u github.com/joho/godotenv
 go get -u github.com/golang-jwt/jwt
+go get -u github.com/google/uuid
+
+go mod tidy
 ```
 
 > The `-u` flag instructs get to update modules providing dependencies of packages named on the command line to use newer minor or patch releases when available.

@@ -17,7 +17,6 @@ func GetTodo(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, todo)
 	}
-
 }
 
 func GetTodos(c *gin.Context) {

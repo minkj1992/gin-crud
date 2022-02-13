@@ -12,24 +12,22 @@ import (
 	"gorm.io/gorm"
 )
 
-
 func main() {
 	infra.LoadEnv()
-
 	dsn := infra.Url(infra.Config())
 	db, err := gorm.Open(mysql.Open(dsn),  &gorm.Config{})
-	infra.SetDB(db)
-
 	if err != nil {
 		log.Fatalf("Failed to get db connection: %v", err)
 	}
+
+	infra.SetDB(db)
+	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.Todo{})
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	// routes.UserRoutes(router)
+	routes.UserRoutes(router)
 	router.Use(middleware.Authenticate())
-
 	routes.TodoRoutes(router)
 	router.Run(":8080")
 }
