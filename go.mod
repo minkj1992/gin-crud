@@ -10,7 +10,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/stretchr/testify v1.6.1 // indirect
-	golang.org/x/crypto v0.0.0-20201216223049-8b5274cf687f // indirect
+	golang.org/x/crypto v0.0.0-20201216223049-8b5274cf687f
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gorm.io/driver/mysql v1.2.3
 	gorm.io/gorm v1.22.5

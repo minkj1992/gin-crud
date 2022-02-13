@@ -36,8 +36,8 @@ go run main.go
   - [ ] deploy postgresql
   - [ ] 1:n relationship
   - [ ] add audio field
-  - [ ] add index
-  - [ ] add unique key
+  - [x] add index
+  - [x] add unique key
 - application
   - [x] add jwt middleware
   - [x] add json validation

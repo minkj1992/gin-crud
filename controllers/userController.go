@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -45,18 +46,30 @@ func SignUp(c *gin.Context) {
 		return
 	}
 	// todo: Check user is already exist (unique email)
-	// todo: hash password
+	isExist, err := models.IsUserAlreadyExist(&user, *user.Email)
+	defer cancel()
+	if err != nil {
+		log.Panic(err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "error occurred while checking for the email"})
+		return
+	}
+	if isExist {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "This user's email is already exists"})
+		return
+	}
+	
 	// hash password
 	password := services.HashPassword(*user.Password)
-	user.Password = &password
-	
+	user.Password = &password	
+	// generate uuid
 	u := uuid.NewString()
 	user.UUID = &u
-	//generate token and refersh token (generate all tokens function from helper)
+	//generate token and refersh token
 	token, refreshToken, _ := services.GenerateAllTokens(*user.Email, *user.FirstName, *user.LastName, *user.UUID)
 	user.Token = &token
 	user.RefreshToken = &refreshToken
 
+	// register a user
 	insertionError := models.CreateUser(&user)
 	defer cancel()
 	if insertionError != nil {
@@ -65,8 +78,5 @@ func SignUp(c *gin.Context) {
 		return
 	}
 	
-	//if all ok, then you insert this new user into the user collection	
-	//return status OK and send the result back
 	c.JSON(http.StatusOK, user.ID)
-	
 }

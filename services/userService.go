@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"log"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -19,10 +20,10 @@ func HashPassword(password string) string {
 }
 
 func VerifyPassword(origin string, given string) (bool, string) {
-	err := bcrypt.CompareHashAndPassword([]byte(origin), []byte[given])
+	err := bcrypt.CompareHashAndPassword([]byte(origin), []byte(given))
 	if err != nil {
 		return false, fmt.Sprintf("password is incorrect")
 	}
-	return true, nil
+	return true, ""
 }
 
