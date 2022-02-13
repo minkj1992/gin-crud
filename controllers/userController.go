@@ -16,7 +16,19 @@ import (
 
 var validate = validator.New()
 
+// debug only api
+func GetUsers(c *gin.Context) {	
+	var users []models.User
+	_, cancel := utils.GetContextWithTimeOut()
+	err := models.GetAllUsers(&users)
+	defer cancel()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+	c.JSON(http.StatusOK, users)
+}
 
+// debug only api
 func GetUser(c *gin.Context) {
 	var user models.User
 	
@@ -25,14 +37,29 @@ func GetUser(c *gin.Context) {
 
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
-	} else {
-		c.JSON(http.StatusOK, user)
 	}
+	c.JSON(http.StatusOK, user)
+}
+
+func GetCurrentUser(c * gin.Context) {
+	var user models.User
+	_, cancel := utils.GetContextWithTimeOut() // todo: do I need this line? wtf..
+
+	uuid, ok := c.Get("uuid")
+	if ok == false {
+		cancel()
+	}
+	
+	err := models.GetUserByUUID(&user, uuid.(string))
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+	c.JSON(http.StatusOK, user)	
 }
 
 func SignUp(c *gin.Context) {
 	var user models.User
-	_, cancel := utils.GetContextWithTimeOut()
+	_, cancel := utils.GetContextWithTimeOut() // todo: do I need this line? wtf..
 	//convert the JSON data coming from postman to something that golang understands
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -79,4 +106,17 @@ func SignUp(c *gin.Context) {
 	}
 	
 	c.JSON(http.StatusOK, user.ID)
+}
+
+func Login(c *gin.Context) {
+
+
+}
+
+
+func Logout(c *gin.Context) {
+
+}
+
+func Withdraw(c *gin.Context) {
 }

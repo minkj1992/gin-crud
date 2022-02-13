@@ -24,7 +24,7 @@ go mod tidy
 go run main.go
 ```
 
-# todo
+## todo
 
 - ci/cd
   - [ ] fmt script with makefile
@@ -56,5 +56,12 @@ go run main.go
     - [ ] login
     - [ ] logout
     - [x] signup
+    - [x] get current user info
+    - [x] get a user
+    - [x] get users
     - [ ] find password
     - [ ] withdraw user
+
+## refs
+
+- [what the fuck is context?](https://www.sohamkamani.com/golang/context-cancellation-and-values/) 정리할 예정

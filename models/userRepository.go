@@ -4,9 +4,13 @@ import (
 	"github.com/minkj1992/gin-crud/infra"
 )
 
+const (
+	MAX_ROW_SIZE = 1000
+)
+
 
 func GetAllUsers(users *[]User) (err error) {
-	if err = infra.DB.Table("users").Find(users).Error; err != nil {
+	if err = infra.DB.Table("users").Find(users).Limit(MAX_ROW_SIZE).Error; err != nil {
 		return err
 	}
 	return nil
@@ -14,6 +18,13 @@ func GetAllUsers(users *[]User) (err error) {
 
 func GetUserById(user *User, id string) (err error) {
 	if err = infra.DB.Table("users").Where("id = ?", id).First(user).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetUserByUUID(user *User, uuid string) (err error) {
+	if err = infra.DB.Table("users").Where("uuid = ?", uuid).First(user).Error; err != nil {
 		return err
 	}
 	return nil
