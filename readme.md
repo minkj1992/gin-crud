@@ -26,25 +26,35 @@ go run main.go
 
 # todo
 
-- infrastructure
-
-  - [x] add mysql
-  - [x] add repository
-  - [x] dotenv
-  - [x] jwt auth
-  - [ ] add swagger
+- ci/cd
+  - [ ] fmt script with makefile
   - [ ] ci with github action
   - [ ] cd with heroku
-  - [ ] fmt script
-  - [ ] hot reload dev mode
-
-- code
-  - [x] crud `entity`
-  - [x] create entity relationship
-    - [x] user : todo
-  - [ ] crud authorization
-  - [ ] add audio field to save on postgresql
+  - [ ] docker images
+- db
+  - [x] connect to mysql
+  - [ ] deploy postgresql
+  - [ ] 1:n relationship
+  - [ ] add audio field
+  - [ ] add index
+  - [ ] add unique key
+- application
+  - [x] add jwt middleware
   - [x] add json validation
-  - [x] add middleware
   - [ ] add dto
   - [ ] unittest
+  - [ ] hot reload dev mode
+  - [ ] add swagger
+  - [x] dotenv
+  - [ ] logger and sentry
+  - [ ] go-admin
+- features
+  - [x] jwt validation
+  - [ ] oauth google
+  - [x] crud `TODO`
+  - crud `User`
+    - [ ] login
+    - [ ] logout
+    - [x] signup
+    - [ ] find password
+    - [ ] withdraw user
