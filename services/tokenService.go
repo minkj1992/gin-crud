@@ -13,7 +13,7 @@ type SignedDetails struct {
 	Email      string
 	First_name string
 	Last_name  string
-	Uid        string
+	UUID        string
 	jwt.StandardClaims
 }
 
@@ -23,32 +23,10 @@ const (
 	refreshTokenTTL time.Duration = time.Hour * time.Duration(24 * 7)
 )
 
-
-func createAccessToken(email string, firstName string, lastName string, uid string) (string, error) {
-	claims := &SignedDetails{
-		Email:      email,
-		First_name: firstName,
-		Last_name:  lastName,
-		Uid:        uid,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(tokenTTL).Unix(),
-		},
-	}
-	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(secret_key))
-}
-
-func createRefreshToken() (string, error) {
-	refreshClaims := &SignedDetails{
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(refreshTokenTTL).Unix(),
-		},
-	}
-	return jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims).SignedString([]byte(secret_key))
-}
-
-func GenerateAllTokens(email string, firstName string, lastName string, uid string) (signedToken string, signedRefreshToken string, err error) {
-	signedToken, err = createAccessToken(email, firstName, lastName, uid)
-	signedRefreshToken, err = createRefreshToken()
+func GenerateAllTokens(email string, firstName string, lastName string, uuid string) (signedToken string, signedRefreshToken string, err error) {
+	signedToken, err = generateAccessToken(email, firstName, lastName, uuid)
+	signedRefreshToken, err = generateRefreshToken()
+	// TODO: err overwrite 될까?
 	if err != nil {
 		log.Panic(err)
 		return
@@ -85,3 +63,25 @@ func ValidateToken(signedToken string) (claims *SignedDetails, msg string) {
 	return claims, msg
 }
 
+
+func generateAccessToken(email string, firstName string, lastName string, uuid string) (string, error) {
+	claims := &SignedDetails{
+		Email:      email,
+		First_name: firstName,
+		Last_name:  lastName,
+		UUID:        uuid,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Local().Add(tokenTTL).Unix(),
+		},
+	}
+	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(secret_key))
+}
+
+func generateRefreshToken() (string, error) {
+	refreshClaims := &SignedDetails{
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Local().Add(refreshTokenTTL).Unix(),
+		},
+	}
+	return jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims).SignedString([]byte(secret_key))
+}
