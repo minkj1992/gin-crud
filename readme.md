@@ -18,6 +18,10 @@ go mod tidy
 
 > The `-u` flag instructs get to update modules providing dependencies of packages named on the command line to use newer minor or patch releases when available.
 
+## docs
+
+![user api](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/minkj1992/gin-crud/main/docs/users.puml)
+
 ## run
 
 ```bash
@@ -59,7 +63,6 @@ go run main.go
     - [x] get current user info
     - [x] get a user
     - [x] get users
-    - [ ] find password
     - [ ] withdraw user
 
 ## todo

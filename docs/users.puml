@@ -1,0 +1,40 @@
+@startuml
+
+' client
+Actor user
+Participant client #Gold
+
+' api
+Participant "server" as api #LightSalmon
+database "mysql" as db #LightSalmon
+
+' title
+title <font size=30>/v1/users</font>
+
+' 가입 동선 시작
+user -> client  : 회원가입(signup)
+|||
+
+== POST /v1/users/signup   회원 가입 ==
+client -> api: 약관 관련 process들 진행
+return ok
+client -> api: oauth 과정들 진행
+return ok
+client  -> api++: **POST /v1/users/signup**\
+\n{\n\t"first_name": "minwook",\n\t"last_name": "je",\n\t"email": "minkj1994@gmail.com",\n\t"password": "password!",\n\t"avatar": "www.naver.com"\n}\n
+api -> api++: request context 
+api -> api: dto json validation
+api -> api: email unique
+
+api -> db++: (dao) create account
+return account
+api -> api: convert response dto
+return context 종료
+return jwt (access token)
+|||
+== GET /v1/users/me     계정 정보확인 ==
+== POST /v1/users/login 로그인 ==
+== PATCH /v1/users/     프로필 수정 ==
+== DELETE /v1/users/     회원탈퇴 ==
+
+@enduml
