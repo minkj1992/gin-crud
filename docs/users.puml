@@ -29,8 +29,9 @@ api -> api: email unique
 api -> db++: (dao) create account
 return account
 api -> api: convert response dto
+api -> api: set jwt(access token) to HTTPonly-cookie(RFC-6265)
 return context 종료
-return jwt (access token)
+return account info
 |||
 == GET /v1/users/me     계정 정보확인 ==
 == POST /v1/users/login 로그인 ==

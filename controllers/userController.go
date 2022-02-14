@@ -94,7 +94,7 @@ func SignUp(c *gin.Context) {
 
 	// TODO: uid만 전달 주면 될듯, register할 때는 토큰 만들지 않아도 될 것 같은데
 	// 이렇게 되면 uuid도 필요없게 된다.
-
+	
 	//generate token and refersh token
 	token, refreshToken, _ := services.GenerateAllTokens(*user.Email, *user.FirstName, *user.LastName, *user.UUID)
 	user.Token = &token
