@@ -8,6 +8,8 @@ import (
 	"github.com/minkj1992/gin-crud/services"
 )
 
+// TODO: refresh access token by refresh token if it is expired
+// TODO: refresh token cache if refresh token is expired
 func Authenticate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		clientToken := c.Request.Header.Get("Authorization")
