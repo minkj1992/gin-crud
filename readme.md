@@ -54,7 +54,7 @@ go run main.go
   - [x] crud `TODO`
   - crud `User`
     - [x] login
-    - [ ] logout
+    - [x] logout: jwt는 클라 또는 웹 localstorage에 저장된다 가정하면 서버에서 해줄 건 없다.
     - [x] signup
     - [x] get current user info
     - [x] get a user

@@ -146,9 +146,5 @@ func Login(c *gin.Context) {
 }
 
 
-func Logout(c *gin.Context) {
-
-}
-
 func Withdraw(c *gin.Context) {
 }

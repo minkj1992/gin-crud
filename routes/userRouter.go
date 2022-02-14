@@ -19,7 +19,6 @@ func BeforeAuthUserRoutes(incomingRoutes *gin.Engine) {
 func AfterAuthUserRoutes(incomingRoutes *gin.Engine) {
 	users := incomingRoutes.Group("v1/users")
 	{
-		users.POST("/logout", controllers.Logout)
 		// TODO: users.POST("/withdraw", controllers.Withdraw)
 		// users.PATCH("/profile",controllers.GetCurrentUser)
 		users.GET("/me",controllers.GetCurrentUser)
