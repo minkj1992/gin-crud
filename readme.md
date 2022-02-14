@@ -53,7 +53,7 @@ go run main.go
   - [ ] oauth google
   - [x] crud `TODO`
   - crud `User`
-    - [ ] login
+    - [x] login
     - [ ] logout
     - [x] signup
     - [x] get current user info
@@ -62,6 +62,30 @@ go run main.go
     - [ ] find password
     - [ ] withdraw user
 
-## refs
+## todo
 
-- [what the fuck is context?](https://www.sohamkamani.com/golang/context-cancellation-and-values/) 정리할 예정
+### todo
+
+#### total process
+
+```
+(http/https) requeset
+-> channel -> context
+-> middleware authentication -> jwt authorization
+-> json validation -> dto convert
+-> business model
+-> dao (db connection)
+-> response dto
+-> response
+```
+
+### 반영할 refs
+
+- request / response process
+  - [about context process](https://www.sohamkamani.com/golang/context-cancellation-and-values/)
+  - [golang blog restful gin](https://go.dev/doc/tutorial/web-service-gin)
+- dto
+  - [golang dto](https://stackoverflow.com/a/44981367)
+  - [dto example](https://hellokoding.com/crud-restful-apis-with-go-modules-wire-gin-gorm-and-mysql/)
+- dao
+  - [gorm dao](https://umi0410.github.io/blog/golang/how-to-backend-in-go-db/)

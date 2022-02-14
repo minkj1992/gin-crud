@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/minkj1992/gin-crud/infra"
+	"github.com/minkj1992/gin-crud/utils"
 )
 
 const (
@@ -30,6 +31,13 @@ func GetUserByUUID(user *User, uuid string) (err error) {
 	return nil
 }
 
+func GetUserByEmail(user *User, email string) (err error) {
+	if err = infra.DB.Table("users").Where("email = ?", email).First(user).Error; err != nil {
+		return err
+	}
+	return nil	
+}
+
 func IsUserAlreadyExist(user *User, email string) (bool, error) {
 	var count int64
 	if err := infra.DB.Table("users").Select("id").Where("email = ?", email).Count(&count).Error; err != nil {
@@ -50,12 +58,13 @@ func CreateUser(user *User) (err error) {
 }
 
 
-func UpdateUser(user *User, id string) (err error) {
+func UpdateUser(user *User) (err error) {
+	currentDateTime, _ := utils.CurrentDateTime()
+	user.UpdatedAt = currentDateTime
 	if err = infra.DB.Table("users").Save(user).Error; err != nil {
 		return err
 	}
 	return nil
-	
 }
 
 func DeleteUser(user *User, id string) (err error) {

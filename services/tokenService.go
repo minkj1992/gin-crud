@@ -7,6 +7,8 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/minkj1992/gin-crud/infra"
+	"github.com/minkj1992/gin-crud/models"
+	"github.com/minkj1992/gin-crud/utils"
 )
 
 type SignedDetails struct {
@@ -34,7 +36,20 @@ func GenerateAllTokens(email string, firstName string, lastName string, uuid str
 	return signedToken, signedRefreshToken, err
 }
 
-func UpdateAllTokens() {
+
+// generate tokens -> call update user
+func UpdateAllTokens(user *models.User, accessToken *string, refreshToken *string) {
+	_, cancel := utils.GetContextWithTimeOut()
+	user.Token = accessToken
+	user.RefreshToken = refreshToken
+	
+	err := models.UpdateUser(user)
+	defer cancel()
+	if err != nil {
+		log.Panic(err)
+		return
+	}
+	return
 }
 
 func ValidateToken(signedToken string) (claims *SignedDetails, msg string) {

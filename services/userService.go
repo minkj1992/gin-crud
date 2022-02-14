@@ -19,11 +19,10 @@ func HashPassword(password string) string {
 	return string(bytes)
 }
 
-func VerifyPassword(origin string, given string) (bool, string) {
-	err := bcrypt.CompareHashAndPassword([]byte(origin), []byte(given))
+func VerifyPassword(hashedPassword string, password string) (bool, string) {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	if err != nil {
 		return false, fmt.Sprintf("password is incorrect")
 	}
 	return true, ""
 }
-
