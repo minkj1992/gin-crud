@@ -1,7 +1,19 @@
 {
-  "first_name": "minwook",
-  "last_name": "je",
-  "email": "minkj1994@gmail.com",
-  "password": "password!",
-  "avatar": "www.naver.com"
+  // 최신 생성순으로 정렬되어 return
+  "rooms": [
+    {
+      "id": "<int>", //다이어리룸 id
+      "name": "<str>", // 다이어리룸 이름
+      "totalMemberCount": <int>, // +2, +4
+      "createdAt": <datetime>, // 최근 다이어리 알려주기용
+      "members": [
+        {
+          "accountId": "<int>",
+          "profileUrl": "<url>",
+        },
+        {}
+      ]
+    },
+    {}
+  ]
 }

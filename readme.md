@@ -42,6 +42,7 @@ go run main.go
   - [ ] add audio field
   - [x] add index
   - [x] add unique key
+  - [ ] add json list field
 - application
   - [x] add jwt middleware
   - [x] add json validation
